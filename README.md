@@ -10,6 +10,11 @@ We divide the tasks into 5 main types:
 5) Birthdays
 6) General Tasks(Others are a part of this)
 
+## Install Requirements
+
+Will update soon
+
+
 ## Team Details
 
 Team Members:
