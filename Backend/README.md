@@ -4,3 +4,6 @@ we will most likely create 2 servers
 2) second one will be used to handle all API requests from the front end.
 
 For calender,we will use calenderAPI
+
+
+futher details will be added soon
