@@ -15,7 +15,7 @@ We divide the tasks into 5 main types:
 Will update soon
 
 ## Frontend
-![alt text](https://github.com/Pupking/Planner/blob/main/Documentation/frontendv1.png)
+![alt text](https://github.com/Pupking/Planner/blob/main/Documentation/frontendv1.2.jpeg)
 
 ## Team Details
 
