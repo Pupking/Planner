@@ -19,7 +19,7 @@ Will update soon
 
 ## Database 
 This will be further improved.
-![alt text](https://github.com/Pupking/Planner/blob/Harshavardhan/Documentation/DatabaseV1.pdf)
+![Database design pdf](https://github.com/Pupking/Planner/blob/Harshavardhan/Documentation/DatabaseV1.pdf)
 
 ## Team Details
 
