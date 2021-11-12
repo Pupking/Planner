@@ -17,6 +17,10 @@ Will update soon
 ## Frontend
 ![alt text](https://github.com/Pupking/Planner/blob/main/Documentation/frontendv1.2.jpeg)
 
+## Database 
+This will be further improved.
+![alt text](https://github.com/Pupking/Planner/blob/Harshavardhan/Documentation/DatabaseV1.pdf)
+
 ## Team Details
 
 Team Members:
