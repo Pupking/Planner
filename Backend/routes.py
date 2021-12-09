@@ -8,8 +8,9 @@ from DBHandler.models import User
 
 @app.route('/')
 @app.route('/index')
+@login_required
 def index():
-    return "Hello, World!"
+    return render_template('index.html', title='Home')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -34,7 +35,8 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
+        user = User(username=form.username.data, email=form.email.data, first_name=form.first_name.data
+            ,last_name=form.last_name.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
