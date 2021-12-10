@@ -95,3 +95,11 @@ def create_task():
         flash('Task successfully created!!')
         return redirect(url_for('index'))
     return render_template('create_task.html', title='Create Task', form=form)
+
+@app.route('/delete_task/<title>', methods=['GET','POST'])
+@login_required
+def delete_task(title):
+    task = Task.query.filter_by(title=title).first()
+    db.session.delete(task)
+    db.session.commit()
+    return redirect(url_for('index'))
