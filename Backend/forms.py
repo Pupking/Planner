@@ -43,3 +43,6 @@ class ResetPasswordForm(FlaskForm):
                                            EqualTo('password')])
     submit = SubmitField('Request Password Reset')
 
+
+class TaskCreatorForm(FlaskForm):
+    pass

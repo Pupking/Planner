@@ -11,7 +11,18 @@ from Backend.email import send_password_reset_email
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html', title='Home')
+    name = current_user.username
+    tasks = [
+        {
+            'title': 'Test task1',
+            'creator': {'username':name}
+        },
+        {
+            'title': 'Test task2',
+            'creator': {'username':name}
+        },
+    ]
+    return render_template('index.html', title='Home', tasks=tasks)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

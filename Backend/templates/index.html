@@ -2,5 +2,7 @@
 
 {% block content %}
     <h1>Hi, {{ current_user.first_name }} {{ current_user.last_name }}!</h1>
-    <p>Test para</p>
+    {% for task in tasks %}
+        {% include '_task.html' %}
+    {% endfor %}
 {% endblock %}
