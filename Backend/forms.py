@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from DBHandler.models import User
 
@@ -39,10 +39,15 @@ class ResetPasswordRequestForm(FlaskForm):
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField(
-        'Repeat Password', validators=[DataRequired(),
-                                           EqualTo('password')])
+        'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Request Password Reset')
 
 
 class TaskCreatorForm(FlaskForm):
-    pass
+    title = StringField('Enter Task', validators=[DataRequired()])
+    desc = TextAreaField('Enter Description', validators=[Length(min=0, max=350)])
+    task_type = SelectField(
+        'Select Task Type',
+        choices=[('onlme','Online Meeting'), ('projs','Project/Assignment Deadlines'), ('travl','Travel/Journey'), ('movie','Movie'), ('birth','Birthdays/Anniversaries'), ('gentk','Others')], validators=[DataRequired()])
+    submit = SubmitField('Create Task')
+    
