@@ -4,7 +4,8 @@ from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from Backend import app, db
 from Backend.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
-from DBHandler.models import User
+from Backend.forms import TaskCreatorForm
+from DBHandler.models import User, Task
 from Backend.email import send_password_reset_email
 
 @app.route('/')
@@ -12,16 +13,7 @@ from Backend.email import send_password_reset_email
 @login_required
 def index():
     name = current_user.username
-    tasks = [
-        {
-            'title': 'Test task1',
-            'creator': {'username':name}
-        },
-        {
-            'title': 'Test task2',
-            'creator': {'username':name}
-        },
-    ]
+    tasks = Task.query.all()
     return render_template('index.html', title='Home', tasks=tasks)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -91,3 +83,15 @@ def reset_password(token):
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
 
+@app.route('/create_task', methods=['GET', 'POST'])
+@login_required
+def create_task():
+    form = TaskCreatorForm()
+    if form.validate_on_submit():
+        task = Task(creator=current_user, title=form.title.data, desc=form.desc.data
+            ,task_type=form.task_type.data)
+        db.session.add(task)
+        db.session.commit()
+        flash('Task successfully created!!')
+        return redirect(url_for('index'))
+    return render_template('create_task.html', title='Create Task', form=form)
