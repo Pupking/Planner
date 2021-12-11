@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, jsonify
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from Backend import app, db
@@ -95,6 +95,9 @@ def create_task():
         db.session.commit()
         flash('Task successfully created!!')
         return redirect(url_for('index'))
+    elif request.method == 'GET':
+        form.deadline.data = datetime.now()
+        form.time.data = datetime.now()
     return render_template('create_task.html', title='Create Task', form=form)
 
 @app.route('/delete_task/<title>', methods=['GET','POST'])
@@ -104,3 +107,8 @@ def delete_task(title):
     db.session.delete(task)
     db.session.commit()
     return redirect(url_for('index'))
+
+@app.route('/calendar')
+def calendar():
+    return render_template('calendar.html')
+
