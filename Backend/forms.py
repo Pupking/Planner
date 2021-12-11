@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, SelectField, DateField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from DBHandler.models import User
 
@@ -49,5 +49,6 @@ class TaskCreatorForm(FlaskForm):
     task_type = SelectField(
         'Select Task Type',
         choices=[('onlme','Online Meeting'), ('projs','Project/Assignment Deadlines'), ('travl','Travel/Journey'), ('movie','Movie'), ('birth','Birthdays/Anniversaries'), ('gentk','Others')], validators=[DataRequired()])
+    deadline = DateField('Deadline',  validators=[DataRequired()],format='%Y-%m-%d')
     submit = SubmitField('Create Task')
     
