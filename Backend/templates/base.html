@@ -6,6 +6,8 @@
         {% else %}
         <title>Welcome to Microblog</title>
         {% endif %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
     </head>
     <body>
         <div>
@@ -15,6 +17,7 @@
             <a href="{{ url_for('login') }}">Login</a>
             {% else %}
             <a href="{{ url_for('create_task') }}">Create Task</a>
+            <a href="{{ url_for('calendar') }}">Go to Calendar</a>
             <a href="{{ url_for('logout') }}">Logout</a>
             {% endif %}
         </div>
