@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, SelectField, DateField, TimeField, DateTimeField
-#from wtforms.fields.html5 import DateTimeField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from DBHandler.models import User
 
@@ -46,11 +45,13 @@ class ResetPasswordForm(FlaskForm):
 
 class TaskCreatorForm(FlaskForm):
     title = StringField('Enter Task', validators=[DataRequired()])
-    desc = TextAreaField('Enter Description', validators=[Length(min=0, max=350)])
     task_type = SelectField(
         'Select Task Type',
         choices=[('onlme','Online Meeting'), ('projs','Project/Assignment Deadlines'), ('travl','Travel/Journey'), ('movie','Movie'), ('birth','Birthdays/Anniversaries'), ('gentk','Others')], validators=[DataRequired()])
-    deadline = DateField('Deadline', format='%Y-%m-%d')
+    submit = SubmitField('Next >')
+
+class TaskDetailForm(FlaskForm):
+    date = DateField('Date', format='%Y-%m-%d')
     time = TimeField('Time', format='%H:%M')
-    submit = SubmitField('Create Task')
-    
+    desc = TextAreaField('Enter Description', validators=[Length(min=0, max=350)])
+    meet_link = StringField('Meeting Link', validators=[DataRequired()])
