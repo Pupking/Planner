@@ -14,7 +14,8 @@ from Backend.email import send_password_reset_email
 def index():
     name = current_user.username
     tasks = Task.query.all()
-    return render_template('index.html', title='Home', tasks=tasks)
+    link = "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmFiZjhkZTgtMTE1Yy00OGEyLTkxZjctM2EwOTljOGY5NDYy%40thread.v2/0?context=%7b%22Tid%22%3a%228bf89164-b311-40ca-a295-2e0f5f39d14e%22%2c%22Oid%22%3a%2292fe21b0-d2bb-4f46-8ad3-1b6af4cf6fc4%22%7d"
+    return render_template('index.html', title='Home', tasks=tasks, link=link)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
