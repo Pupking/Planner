@@ -89,15 +89,11 @@ def reset_password(token):
 def create_task():
     form = TaskCreatorForm()
     if form.validate_on_submit():
-        task = Task(creator=current_user, title=form.title.data, desc=form.desc.data
-            ,task_type=form.task_type.data)
+        task = Task(creator=current_user, title=form.title.data, task_type=form.task_type.data)
         db.session.add(task)
         db.session.commit()
         flash('Task successfully created!!')
         return redirect(url_for('index'))
-    elif request.method == 'GET':
-        form.deadline.data = datetime.now()
-        form.time.data = datetime.now()
     return render_template('create_task.html', title='Create Task', form=form)
 
 @app.route('/delete_task/<title>', methods=['GET','POST'])

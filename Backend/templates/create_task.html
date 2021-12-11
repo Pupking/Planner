@@ -12,30 +12,9 @@
             {% endfor %}
         </p>
         <p>
-            {{ form.desc.label }}<br>
-            {{ form.desc(cols=32, rows=6) }}<br>
-            {% for error in form.desc.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
             {{ form.task_type.label }}<br>
-            {{ form.task_type(size=32) }}<br>
+            {{ form.task_type() }}<br>
             {% for error in form.task_type.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.deadline.label }}<br>
-            {{ form.deadline() }}<br>
-            {% for error in form.deadline.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.time.label }}<br>
-            {{ form.time() }}<br>
-            {% for error in form.time.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
