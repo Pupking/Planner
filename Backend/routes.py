@@ -4,18 +4,33 @@ from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from Backend import app, db
 from Backend.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
-from Backend.forms import TaskCreatorForm
+from Backend.forms import TaskCreatorForm, TaskDetailForm, TaskFilterForm
 from DBHandler.models import User, Task
 from Backend.email import send_password_reset_email
 
-@app.route('/')
-@app.route('/index')
+link = "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmFiZjhkZTgtMTE1Yy00OGEyLTkxZjctM2EwOTljOGY5NDYy%40thread.v2/0?context=%7b%22Tid%22%3a%228bf89164-b311-40ca-a295-2e0f5f39d14e%22%2c%22Oid%22%3a%2292fe21b0-d2bb-4f46-8ad3-1b6af4cf6fc4%22%7d"
+
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
     name = current_user.username
-    tasks = Task.query.all()
-    link = "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmFiZjhkZTgtMTE1Yy00OGEyLTkxZjctM2EwOTljOGY5NDYy%40thread.v2/0?context=%7b%22Tid%22%3a%228bf89164-b311-40ca-a295-2e0f5f39d14e%22%2c%22Oid%22%3a%2292fe21b0-d2bb-4f46-8ad3-1b6af4cf6fc4%22%7d"
-    return render_template('index.html', title='Home', tasks=tasks, link=link)
+    tasks = User.allTask(current_user)
+    form = TaskFilterForm()
+    if form.validate_on_submit():
+        if form.onlme.data:
+            value.append(1)
+        if form.projs.data:
+            value.append(2)
+        if form.travl.data:
+            value.append(3)
+        if form.movie.data:
+            value.append(4)
+        if form.birth.data:
+            pass
+        if form.gentk.data:
+            value.append(6)    
+    return render_template('index.html', title='Home', tasks=tasks, link=link, form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -92,9 +107,21 @@ def create_task():
         task = Task(creator=current_user, title=form.title.data, task_type=form.task_type.data)
         db.session.add(task)
         db.session.commit()
-        flash('Task successfully created!!')
-        return redirect(url_for('index'))
+        flash('Task successfully created!! Add few more details')
+        return redirect(url_for('edit_task'))
     return render_template('create_task.html', title='Create Task', form=form)
+
+@app.route('/edit_task', methods=['GET', 'POST'])
+@login_required
+def edit_task():
+    form = TaskDetailForm()
+    if form.validate_on_submit():
+        flash('Task detail updated!!')
+        return redirect(url_for('index'))
+    elif request.method == 'GET':
+        form.date.data = datetime.now()
+        form.time.data = datetime.now()
+    return render_template('task_detail.html', title='Edit Task', form=form)
 
 @app.route('/delete_task/<title>', methods=['GET','POST'])
 @login_required

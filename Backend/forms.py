@@ -54,4 +54,14 @@ class TaskDetailForm(FlaskForm):
     date = DateField('Date', format='%Y-%m-%d')
     time = TimeField('Time', format='%H:%M')
     desc = TextAreaField('Enter Description', validators=[Length(min=0, max=350)])
-    meet_link = StringField('Meeting Link', validators=[DataRequired()])
+    link = StringField('Meeting Link', validators=[DataRequired()])
+    submit = SubmitField('Finish')
+
+class TaskFilterForm(FlaskForm):
+    onlme = BooleanField('Online Meetings')
+    projs = BooleanField('Projects/Assignments')
+    travl = BooleanField('Travel/Journey')
+    movie = BooleanField('Movie/Concert Reservations')
+    birth = BooleanField('Birthdays')
+    gentk = BooleanField('Others')
+    submit = SubmitField('Apply Filter')
