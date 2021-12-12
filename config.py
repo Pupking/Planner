@@ -8,7 +8,7 @@ host='localhost'
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'Trial-Key'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'mysql+mysqlconnector://{}:{}@{}/testdb'.format(username, password, host)
+        'sqlite:///' + os.path.join(dbdir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     MAIL_SERVER = os.environ.get('MAIL_SERVER') or 'localhost'

@@ -48,6 +48,8 @@ class TaskCreatorForm(FlaskForm):
     task_type = SelectField(
         'Select Task Type',
         choices=[('onlme','Online Meeting'), ('projs','Project/Assignment Deadlines'), ('travl','Travel/Journey'), ('movie','Movie'), ('birth','Birthdays/Anniversaries'), ('gentk','Others')], validators=[DataRequired()])
+    date = DateField('Date', format='%Y-%m-%d')
+    time = TimeField('Time', format='%H:%M')
     submit = SubmitField('Next >')
 
 class TaskDetailForm(FlaskForm):
@@ -58,10 +60,10 @@ class TaskDetailForm(FlaskForm):
     submit = SubmitField('Finish')
 
 class TaskFilterForm(FlaskForm):
-    onlme = BooleanField('Online Meetings')
-    projs = BooleanField('Projects/Assignments')
-    travl = BooleanField('Travel/Journey')
-    movie = BooleanField('Movie/Concert Reservations')
-    birth = BooleanField('Birthdays')
-    gentk = BooleanField('Others')
-    submit = SubmitField('Apply Filter')
+    onlme = SubmitField('Online Meetings')
+    projs = SubmitField('Projects/Assignments')
+    travl = SubmitField('Travel/Journey')
+    movie = SubmitField('Movie/Concert Reservations')
+    birth = SubmitField('Birthdays')
+    gentk = SubmitField('Others')
+    index = SubmitField('Show all tasks')

@@ -8,29 +8,140 @@ from Backend.forms import TaskCreatorForm, TaskDetailForm, TaskFilterForm
 from DBHandler.models import User, Task
 from Backend.email import send_password_reset_email
 
-link = "https://teams.microsoft.com/l/meetup-join/19%3ameeting_NmFiZjhkZTgtMTE1Yy00OGEyLTkxZjctM2EwOTljOGY5NDYy%40thread.v2/0?context=%7b%22Tid%22%3a%228bf89164-b311-40ca-a295-2e0f5f39d14e%22%2c%22Oid%22%3a%2292fe21b0-d2bb-4f46-8ad3-1b6af4cf6fc4%22%7d"
-
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
-    name = current_user.username
     tasks = User.allTask(current_user)
     form = TaskFilterForm()
     if form.validate_on_submit():
         if form.onlme.data:
-            value.append(1)
+            return redirect(url_for('online_meetings'))
         if form.projs.data:
-            value.append(2)
+            return redirect(url_for('projects'))
         if form.travl.data:
-            value.append(3)
+            return redirect(url_for('travel'))
         if form.movie.data:
-            value.append(4)
+            return redirect(url_for('movie'))
         if form.birth.data:
-            pass
+            return redirect(url_for('birthday'))
         if form.gentk.data:
-            value.append(6)    
-    return render_template('index.html', title='Home', tasks=tasks, link=link, form=form)
+            return redirect(url_for('others'))
+        if form.index.data:
+            return redirect(url_for('index'))
+    return render_template('index.html', title='Home', tasks=tasks, form=form)
+
+@app.route('/index/online_meetings', methods=['GET', 'POST'])
+@login_required
+def online_meetings():
+    tasks = User.onlinemeetingstask(current_user)
+    form = TaskFilterForm()
+    if form.validate_on_submit():
+        if form.onlme.data:
+            return redirect(url_for('online_meetings'))
+        if form.projs.data:
+            return redirect(url_for('projects'))
+        if form.travl.data:
+            return redirect(url_for('travel'))
+        if form.movie.data:
+            return redirect(url_for('movie'))
+        if form.birth.data:
+            return redirect(url_for('birthday'))
+        if form.gentk.data:
+            return redirect(url_for('others'))
+        if form.index.data:
+            return redirect(url_for('index'))
+    return render_template('index.html', title='Home', tasks=tasks, form=form)
+
+@app.route('/index/projects', methods=['GET', 'POST'])
+@login_required
+def projects():
+    tasks = User.projectstask(current_user)
+    form = TaskFilterForm()
+    if form.validate_on_submit():
+        if form.onlme.data:
+            return redirect(url_for('online_meetings'))
+        if form.projs.data:
+            return redirect(url_for('projects'))
+        if form.travl.data:
+            return redirect(url_for('travel'))
+        if form.movie.data:
+            return redirect(url_for('movie'))
+        if form.birth.data:
+            return redirect(url_for('birthday'))
+        if form.gentk.data:
+            return redirect(url_for('others'))
+        if form.index.data:
+            return redirect(url_for('index'))
+    return render_template('index.html', title='Home', tasks=tasks, form=form)
+
+@app.route('/index/movie', methods=['GET', 'POST'])
+@login_required
+def movie():
+    tasks = User.movietask(current_user)
+    form = TaskFilterForm()
+    if form.validate_on_submit():
+        if form.onlme.data:
+            return redirect(url_for('online_meetings'))
+        if form.projs.data:
+            return redirect(url_for('projects'))
+        if form.travl.data:
+            return redirect(url_for('travel'))
+        if form.movie.data:
+            return redirect(url_for('movie'))
+        if form.birth.data:
+            return redirect(url_for('birthday'))
+        if form.gentk.data:
+            return redirect(url_for('others'))
+        if form.index.data:
+            return redirect(url_for('index'))
+    return render_template('index.html', title='Home', tasks=tasks, form=form)
+
+
+@app.route('/index/birthday', methods=['GET', 'POST'])
+@login_required
+def birthday():
+    tasks = User.birthdaytask(current_user)
+    form = TaskFilterForm()
+    if form.validate_on_submit():
+        if form.onlme.data:
+            return redirect(url_for('online_meetings'))
+        if form.projs.data:
+            return redirect(url_for('projects'))
+        if form.travl.data:
+            return redirect(url_for('travel'))
+        if form.movie.data:
+            return redirect(url_for('movie'))
+        if form.birth.data:
+            return redirect(url_for('birthday'))
+        if form.gentk.data:
+            return redirect(url_for('others'))
+        if form.index.data:
+            return redirect(url_for('index'))
+    return render_template('index.html', title='Home', tasks=tasks, form=form)
+
+
+@app.route('/index/others', methods=['GET', 'POST'])
+@login_required
+def others():
+    tasks = User.othertask(current_user)
+    form = TaskFilterForm()
+    if form.validate_on_submit():
+        if form.onlme.data:
+            return redirect(url_for('online_meetings'))
+        if form.projs.data:
+            return redirect(url_for('projects'))
+        if form.travl.data:
+            return redirect(url_for('travel'))
+        if form.movie.data:
+            return redirect(url_for('movie'))
+        if form.birth.data:
+            return redirect(url_for('birthday'))
+        if form.gentk.data:
+            return redirect(url_for('others'))
+        if form.index.data:
+            return redirect(url_for('index'))
+    return render_template('index.html', title='Home', tasks=tasks, form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -111,7 +222,7 @@ def create_task():
         return redirect(url_for('edit_task'))
     return render_template('create_task.html', title='Create Task', form=form)
 
-@app.route('/edit_task', methods=['GET', 'POST'])
+@app.route('/edit_task/<task>', methods=['GET', 'POST'])
 @login_required
 def edit_task():
     form = TaskDetailForm()

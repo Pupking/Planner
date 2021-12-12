@@ -26,31 +26,31 @@ class User(UserMixin, db.Model):
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest,size)
       
     def allTask(self):
-        own = Task.query.filter_by(user_id = self.id).order_by(Task.timestamp).desc()
+        own = Task.query.filter_by(user_id = self.id).order_by(Task.timestamp.desc())
         return own
       
     def birthdaytask(self):
-        own = Task.query.filter_by(task_type = 'birth').order_by(Task.timestamp).desc()
+        own = Task.query.filter_by(task_type = 'birth').order_by(Task.timestamp.desc())
         return own
       
     def movietask(self):
-        own = Task.query.filter_by(task_type = 'movie').order_by(Task.timestamp).desc() 
+        own = Task.query.filter_by(task_type = 'movie').order_by(Task.timestamp.desc()) 
         return own
       
     def traveltask(self):
-        own = Task.query.filter_by(task_type = 'travl').order_by(Task.timestamp).desc() 
+        own = Task.query.filter_by(task_type = 'travl').order_by(Task.timestamp.desc()) 
         return own
       
     def projectstask(self):
-        own = Task.query.filter_by(task_type = 'projs').order_by(Task.timestamp).desc() 
+        own = Task.query.filter_by(task_type = 'projs').order_by(Task.timestamp.desc()) 
         return own
       
     def onlinemeetingstask(self):
-        own = Task.query.filter_by(task_type = 'onlme').order_by(Task.timestamp).desc() 
+        own = Task.query.filter_by(task_type = 'onlme').order_by(Task.timestamp.desc()) 
         return own
       
     def othertask(self):
-        own = Task.query.filter_by(task_type = 'gentk').order_by(Task.timestamp).desc() 
+        own = Task.query.filter_by(task_type = 'gentk').order_by(Task.timestamp.desc()) 
         return own 
    
 
@@ -84,39 +84,43 @@ class User(UserMixin, db.Model):
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    deadline = db.column(db.DateTime, index=True)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     task_type = db.Column(db.String(5))
-    online = db.relationship('Task',backref = 'join1',lazy = 'dynamic')
+    online = db.relationship('Online_meetings',backref = 'parent1',lazy = 'dynamic')
+    deadline = db.relationship('Deadlines',backref = 'parent2',lazy = 'dynamic')
+    travel = db.relationship('Travel',backref = 'parent3',lazy = 'dynamic')
+    birthday = db.relationship('Birthday',backref = 'parent4',lazy = 'dynamic')
+    general = db.relationship('General',backref = 'parent5',lazy = 'dynamic')
+    movie = db.relationship('Movie',backref = 'parent6',lazy = 'dynamic')
     def onlinetask(self,user):
         own = Task.query.join(
             Online_meetings,(id == Online_meetings.taskid).filter(user_id = user.id)
-        ) 
+        )
         return own
     def deadlinetask(self,user):
         own = Task.query.join(
-            Deadlines,(id == Online_meetings.taskid).filter(user_id = user.id)
+            Deadlines,(id == Deadlines.taskid).filter(user_id = user.id)
         ) 
         return own
     def traveltask(self,user):
         own = Task.query.join(
-            Travel,(id == Online_meetings.taskid).filter(user_id = user.id)
+            Travel,(id == Travel.taskid).filter(user_id = user.id)
         ) 
         return own
     def birthdaytask(self,user):
         own = Task.query.join(
-         Birthday ,(id == Online_meetings.taskid).filter(user_id = user.id)
+         Birthday ,(id == Travel.taskid).filter(user_id = user.id)
         ) 
         return own
     def generaltask(self,user):
         own = Task.query.join(
-         General ,(id == Online_meetings.taskid).filter(user_id = user.id)
+         General ,(id == General.taskid).filter(user_id = user.id)
         ) 
         return own
     def movietask(self,user):
         own = Task.query.join(
-         Movie ,(id == Online_meetings.taskid).filter(user_id = user.id)
+         Movie ,(id == Movie.taskid).filter(user_id = user.id)
         ) 
         return own
     
@@ -124,35 +128,38 @@ class Task(db.Model):
         return '<Task {}>'.format(self.title)
       
 class Online_meetings(db.Model):
-    taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
+    id = db.Column(db.Integer, primary_key=True)
+    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     link = db.Column(db.String(300))
     host = db.Column(db.String(50))
     desc = db.Column(db.String(100))
 
 class Deadlines(db.Model):
-    taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
-    finish_date = db.column(db.DateTime, index=True)
+    id = db.Column(db.Integer, primary_key=True)
+    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     desc = db.Column(db.String(300))
 
 class Travel(db.Model):
-    taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
-    start_date = db.column(db.DateTime, index=True)
-    finish_date = db.column(db.DateTime, index=True)
+    id = db.Column(db.Integer, primary_key=True)
+    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     source = db.Column(db.String(50))
     destination = db.Column(db.String(50))
 
 class Birthday(db.Model):
-    taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
+    id = db.Column(db.Integer, primary_key=True)
+    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     name = db.Column(db.String(50))
     location = db.Column(db.String(50))
 
 class General(db.Model):
-    taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
+    id = db.Column(db.Integer, primary_key=True)
+    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     desc = db.Column(db.String(150))
     emoji = db.Column(db.String(10))
 
 class Movie(db.Model):
-    taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
+    id = db.Column(db.Integer, primary_key=True)
+    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     name = db.Column(db.String(100))
     desc = db.Column(db.String(150))
     location = db.Column(db.String(150))

@@ -8,30 +8,33 @@
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
+            {{ form.index.label }}<br>
+            {{ form.index(size=20) }}<br>
+        </p>
+        <p>
             {{ form.onlme.label }}<br>
-            {{ form.onlme() }}<br>
+            {{ form.onlme(size=20) }}<br>
         </p>
         <p>
             {{ form.projs.label }}<br>
-            {{ form.projs() }}<br>
+            {{ form.projs(size=20) }}<br>
         </p>
         <p>
             {{ form.travl.label }}<br>
-            {{ form.travl() }}<br>
+            {{ form.travl(size=20) }}<br>
         </p>
         <p>
             {{ form.movie.label }}<br>
-            {{ form.movie() }}<br>
+            {{ form.movie(size=20) }}<br>
         </p>
         <p>
             {{ form.birth.label }}<br>
-            {{ form.birth() }}<br>
+            {{ form.birth(size=20) }}<br>
         </p>
         <p>
             {{ form.gentk.label }}<br>
-            {{ form.gentk() }}<br>
+            {{ form.gentk(size=20) }}<br>
         </p>
-        <p>{{ form.submit() }}</p>
     </form>
     {% for task in tasks %}
         {% include '_task.html' %}
