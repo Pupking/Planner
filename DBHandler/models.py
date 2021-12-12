@@ -24,11 +24,28 @@ class User(UserMixin, db.Model):
     def avatar(self,size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest,size)
-
     def allTask(self):
-        own = Task.query.filter_by(user_id = self.id)
+        own = Task.query.filter_by(user_id = self.id).order_by(Task.timestamp).desc()
         return own
-    
+    def birthdaytask(self):
+        own = Task.query.filter_by(task_type = 'birth').order_by(Task.timestamp).desc()
+        return own
+    def movietask(self):
+        own = Task.query.filter_by(task_type = 'movie').order_by(Task.timestamp).desc() 
+        return own 
+    def traveltask(self):
+        own = Task.query.filter_by(task_type = 'travl').order_by(Task.timestamp).desc() 
+        return own
+    def projectstask(self):
+        own = Task.query.filter_by(task_type = 'projs').order_by(Task.timestamp).desc() 
+        return own  
+    def onlinemeetingstask(self):
+        own = Task.query.filter_by(task_type = 'onlme').order_by(Task.timestamp).desc() 
+        return own 
+    def othertask(self):
+        own = Task.query.filter_by(task_type = 'gentk').order_by(Task.timestamp).desc() 
+        return own 
+   
     def get_reset_password_token(self, expires_in=600):
         return jwt.encode(
             {'reset_password': self.id, 'exp': time() + expires_in},
@@ -45,18 +62,88 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
-
+        def adduser(self, expires_in=600):
+            return jwt.encode(
+            {'reset_password': self.id, 'exp': time() + expires_in},
+            app.config['SECRET_KEY'], algorithm='HS256')
 
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    deadline = db.column(db.DateTime, index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     task_type = db.Column(db.String(5))
+    online = db.relationship('Task',backref = 'join1',lazy = 'dynamic')
+    def onlinetask(self,user):
+        own = Task.query.join(
+            Online_meetings,(id == Online_meetings.taskid).filter(user_id = user.id)
+        ) 
+        return own
+    def deadlinetask(self,user):
+        own = Task.query.join(
+            Deadlines,(id == Online_meetings.taskid).filter(user_id = user.id)
+        ) 
+        return own
+    def traveltask(self,user):
+        own = Task.query.join(
+            Travel,(id == Online_meetings.taskid).filter(user_id = user.id)
+        ) 
+        return own
+    def birthdaytask(self,user):
+        own = Task.query.join(
+         Birthday ,(id == Online_meetings.taskid).filter(user_id = user.id)
+        ) 
+        return own
+    def generaltask(self,user):
+        own = Task.query.join(
+         General ,(id == Online_meetings.taskid).filter(user_id = user.id)
+        ) 
+        return own
+    def movietask(self,user):
+        own = Task.query.join(
+         Movie ,(id == Online_meetings.taskid).filter(user_id = user.id)
+        ) 
+        return own
     
     def __repr__(self):
         return '<Task {}>'.format(self.title)
-    
+class Online_meetings(db.Model):
+    taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
+    link = db.Column(db.String(300))
+    host = db.Column(db.String(50))
+    desc = db.Column(db.String(100))
+
+class Deadlines(db.Model):
+    taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
+    finish_date = db.column(db.DateTime, index=True)
+    desc = db.Column(db.String(300))
+
+class Travel(db.Model):
+    taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
+    start_date = db.column(db.DateTime, index=True)
+    finish_date = db.column(db.DateTime, index=True)
+    source = db.Column(db.String(50))
+    destination = db.Column(db.String(50))
+
+class Birthday(db.Model):
+    taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
+    name = db.Column(db.String(50))
+    location = db.Column(db.String(50))
+
+class General(db.Model):
+    taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
+    desc = db.Column(db.String(150))
+    emoji = db.Column(db.String(10))
+
+class Movie(db.Model):
+    taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
+    name = db.Column(db.String(100))
+    desc = db.Column(db.String(150))
+    location = db.Column(db.String(150))
+
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
