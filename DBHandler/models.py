@@ -24,6 +24,10 @@ class User(UserMixin, db.Model):
     def avatar(self,size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest,size)
+
+    def allTask(self):
+        own = Task.query.filter_by(user_id = self.id)
+        return own
     
     def get_reset_password_token(self, expires_in=600):
         return jwt.encode(
@@ -42,6 +46,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150))
@@ -51,7 +56,7 @@ class Task(db.Model):
     
     def __repr__(self):
         return '<Task {}>'.format(self.title)
-
+    
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
