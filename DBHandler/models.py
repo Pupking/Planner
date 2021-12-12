@@ -24,28 +24,41 @@ class User(UserMixin, db.Model):
     def avatar(self,size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest,size)
+      
     def allTask(self):
         own = Task.query.filter_by(user_id = self.id).order_by(Task.timestamp).desc()
         return own
+      
     def birthdaytask(self):
         own = Task.query.filter_by(task_type = 'birth').order_by(Task.timestamp).desc()
         return own
+      
     def movietask(self):
         own = Task.query.filter_by(task_type = 'movie').order_by(Task.timestamp).desc() 
-        return own 
+        return own
+      
     def traveltask(self):
         own = Task.query.filter_by(task_type = 'travl').order_by(Task.timestamp).desc() 
         return own
+      
     def projectstask(self):
         own = Task.query.filter_by(task_type = 'projs').order_by(Task.timestamp).desc() 
-        return own  
+        return own
+      
     def onlinemeetingstask(self):
         own = Task.query.filter_by(task_type = 'onlme').order_by(Task.timestamp).desc() 
-        return own 
+        return own
+      
     def othertask(self):
         own = Task.query.filter_by(task_type = 'gentk').order_by(Task.timestamp).desc() 
         return own 
    
+
+    def allTask(self):
+        own = Task.query.filter_by(user_id = self.id)
+        return own
+    
+
     def get_reset_password_token(self, expires_in=600):
         return jwt.encode(
             {'reset_password': self.id, 'exp': time() + expires_in},
@@ -62,7 +75,8 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
-        def adduser(self, expires_in=600):
+      
+    def adduser(self, expires_in=600):
             return jwt.encode(
             {'reset_password': self.id, 'exp': time() + expires_in},
             app.config['SECRET_KEY'], algorithm='HS256')
@@ -108,6 +122,7 @@ class Task(db.Model):
     
     def __repr__(self):
         return '<Task {}>'.format(self.title)
+      
 class Online_meetings(db.Model):
     taskid = db.Column(db.Integer,db.Foriegnkey('task.id'))
     link = db.Column(db.String(300))
@@ -142,8 +157,6 @@ class Movie(db.Model):
     desc = db.Column(db.String(150))
     location = db.Column(db.String(150))
 
-
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
-
