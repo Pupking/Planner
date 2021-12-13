@@ -306,6 +306,11 @@ def travel(task_id):
         db.session.add(t)
         db.session.commit()
         return redirect(url_for('index'))
+    if request.method == 'GET':
+        form.start_date.data = task.timestamp
+        form.start_time.data = task.timestamp
+        form.finish_date.data = datetime.now()
+        form.finish_time.data = datetime.now()
     return render_template('task_detail.html', title='Add Details', form=form, task_title=task_title)
 
 @app.route('/edit_task/movie/<task_id>', methods=['GET', 'POST'])
