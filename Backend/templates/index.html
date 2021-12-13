@@ -4,6 +4,7 @@
     <h1>Hi, {{ current_user.first_name }} {{ current_user.last_name }}!</h1>
     </br>
    <div class="container">
+       <div class="row">
     <div class="col-lg-4 card">
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
@@ -37,10 +38,26 @@
     </div>
     </form>
 </div>
-<div class="col-lg-4">
+<div class="col-lg-4 card">
+    <div class="card-header">
+        tasks
+    </div>
     {% for task in tasks %}
         {% include '_task.html' %}
     {% endfor %}
+</div>
+    <div class="col-lg-4 card">
+        <div class="card-header">
+            calendar
+        </div>
+        <div id="calendar"></div>
+    <script>
+        let calendarEl = document.getElementById('calendar');
+        let calendar = new FullCalendar.Calendar(calendarEl, {})
+        calendar.render()
+    </script>
     </div>
+</div>
+
 </div>
 {% endblock %}
