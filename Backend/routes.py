@@ -299,8 +299,7 @@ def projs(task_id):
     task_title = task.title
     form = Deadline_Gen_Form()
     if form.validate_on_submit():
-        combine = datetime.combine(form.start_date.data, form.start_time.data)
-        t = Deadlines(parent2=task, date=combine, desc=form.desc.data)
+        t = Deadlines(parent2=task, date=form.start_date.data, desc=form.desc.data)
         db.session.add(t)
         db.session.commit()
         return redirect(url_for('index'))
@@ -313,8 +312,7 @@ def gentk(task_id):
     task_title = task.title
     form = Deadline_Gen_Form()
     if form.validate_on_submit():
-        combine = datetime.combine(form.start_date.data, form.start_time.data)
-        t = General(parent5=task, time=combine, desc=form.desc.data)
+        t = General(parent5=task, time=form.start_date.data, desc=form.desc.data)
         db.session.add(t)
         db.session.commit()
         return redirect(url_for('index'))

@@ -1,0 +1,129 @@
+2021-12-13 14:19:25,215 ERROR: Exception on /create_task [POST] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1802, in _execute_context
+    self.dialect.do_execute(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 719, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/harshavardhan/Planner/Backend/routes.py", line 242, in create_task
+    db.session.commit()
+  File "<string>", line 2, in commit
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1428, in commit
+    self._transaction.commit(_to_root=self.future)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 829, in commit
+    self._prepare_impl()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 808, in _prepare_impl
+    self.session.flush()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3345, in flush
+    self._flush(objects)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3485, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3445, in _flush
+    flush_context.execute()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 456, in execute
+    rec.execute(self)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 630, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 244, in save_obj
+    _emit_insert_statements(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 1221, in _emit_insert_statements
+    result = connection._execute_20(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1614, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 325, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1481, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1845, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2026, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1802, in _execute_context
+    self.dialect.do_execute(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 719, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) database is locked
+[SQL: INSERT INTO task (title, timestamp, user_id, task_type) VALUES (?, ?, ?, ?)]
+[parameters: ('class', '2021-12-13 14:19:20.196245', 1, 'onlme')]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2021-12-13 14:26:30,536 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:43]
+2021-12-13 14:35:10,150 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:43]
+2021-12-13 14:36:03,581 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:43]
+2021-12-13 14:38:08,248 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:43]
+2021-12-13 14:41:08,283 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:43]
+2021-12-13 17:28:48,824 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:43]
+2021-12-13 22:22:07,708 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
+2021-12-13 22:22:09,484 ERROR: Exception on /delete_task/travel [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2634, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/harshavardhan/Planner/Backend/routes.py", line 374, in delete_task
+    db.session.delete(t)
+  File "<string>", line 2, in delete
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2636, in delete
+    util.raise_(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2021-12-13 22:22:13,765 ERROR: Exception on /delete_task/travel [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2634, in delete
+    state = attributes.instance_state(instance)
+AttributeError: 'NoneType' object has no attribute '_sa_instance_state'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/harshavardhan/Planner/Backend/routes.py", line 374, in delete_task
+    db.session.delete(t)
+  File "<string>", line 2, in delete
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2636, in delete
+    util.raise_(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
