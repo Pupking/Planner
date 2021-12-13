@@ -4,8 +4,8 @@ from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from Backend import app, db
 from Backend.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
-from Backend.forms import TaskCreatorForm, TaskDetailForm, TaskFilterForm
-from DBHandler.models import User, Task
+from Backend.forms import TaskCreatorForm, TravelForm, TaskFilterForm, Onl_Birthday_Form, Deadline_Gen_Form, MovieForm
+from DBHandler.models import User, Task, Online_meetings, Deadlines, Travel, Birthday, General, Movie
 from Backend.email import send_password_reset_email
 
 @app.route('/', methods=['GET', 'POST'])
@@ -22,7 +22,7 @@ def index():
         if form.travl.data:
             return redirect(url_for('travel'))
         if form.movie.data:
-            return redirect(url_for('movie'))
+            return redirect(url_for('movies'))
         if form.birth.data:
             return redirect(url_for('birthday'))
         if form.gentk.data:
@@ -44,7 +44,7 @@ def online_meetings():
         if form.travl.data:
             return redirect(url_for('travel'))
         if form.movie.data:
-            return redirect(url_for('movie'))
+            return redirect(url_for('movies'))
         if form.birth.data:
             return redirect(url_for('birthday'))
         if form.gentk.data:
@@ -66,7 +66,7 @@ def projects():
         if form.travl.data:
             return redirect(url_for('travel'))
         if form.movie.data:
-            return redirect(url_for('movie'))
+            return redirect(url_for('movies'))
         if form.birth.data:
             return redirect(url_for('birthday'))
         if form.gentk.data:
@@ -75,9 +75,9 @@ def projects():
             return redirect(url_for('index'))
     return render_template('index.html', title='Home', tasks=tasks, form=form)
 
-@app.route('/index/movie', methods=['GET', 'POST'])
+@app.route('/index/movies', methods=['GET', 'POST'])
 @login_required
-def movie():
+def movies():
     tasks = User.movietask(current_user)
     form = TaskFilterForm()
     if form.validate_on_submit():
@@ -88,7 +88,7 @@ def movie():
         if form.travl.data:
             return redirect(url_for('travel'))
         if form.movie.data:
-            return redirect(url_for('movie'))
+            return redirect(url_for('movies'))
         if form.birth.data:
             return redirect(url_for('birthday'))
         if form.gentk.data:
@@ -111,7 +111,7 @@ def birthday():
         if form.travl.data:
             return redirect(url_for('travel'))
         if form.movie.data:
-            return redirect(url_for('movie'))
+            return redirect(url_for('movies'))
         if form.birth.data:
             return redirect(url_for('birthday'))
         if form.gentk.data:
@@ -134,7 +134,7 @@ def others():
         if form.travl.data:
             return redirect(url_for('travel'))
         if form.movie.data:
-            return redirect(url_for('movie'))
+            return redirect(url_for('movies'))
         if form.birth.data:
             return redirect(url_for('birthday'))
         if form.gentk.data:
@@ -219,20 +219,107 @@ def create_task():
         db.session.add(task)
         db.session.commit()
         flash('Task successfully created!! Add few more details')
-        return redirect(url_for('edit_task'))
-    return render_template('create_task.html', title='Create Task', form=form)
-
-@app.route('/edit_task/<task>', methods=['GET', 'POST'])
-@login_required
-def edit_task():
-    form = TaskDetailForm()
-    if form.validate_on_submit():
-        flash('Task detail updated!!')
-        return redirect(url_for('index'))
-    elif request.method == 'GET':
+        return redirect(url_for('edit_task',task_id=task.id))
+    if request.method == 'GET':
         form.date.data = datetime.now()
         form.time.data = datetime.now()
-    return render_template('task_detail.html', title='Edit Task', form=form)
+    return render_template('create_task.html', title='Create Task', form=form)
+
+@app.route('/edit_task/<task_id>', methods=['GET', 'POST'])
+@login_required
+def edit_task(task_id):
+    task = Task.query.filter_by(id = task_id).first()
+    task_type = task.task_type
+    if task_type == 'onlme':
+        return redirect(url_for('onlme',task_id=task.id))
+    if task_type == 'birth':
+        return redirect(url_for('birth',task_id=task.id))
+    if task_type == 'projs':
+        return redirect(url_for('projs',task_id=task.id))
+    if task_type == 'gentk':
+        return redirect(url_for('gentk',task_id=task.id))
+    if task_type == 'travl':
+        return redirect(url_for('travel',task_id=task.id))
+    if task_type == 'movie':
+        return redirect(url_for('movie',task_id=task.id))
+    
+@app.route('/edit_task/onlme/<task_id>', methods=['GET', 'POST'])
+@login_required
+def onlme(task_id):
+    task = Task.query.filter_by(id = task_id).first()
+    task_title = task.title
+    form = Onl_Birthday_Form()
+    if form.validate_on_submit():
+        t = Online_meetings(parent1=task, link=form.link.data, desc=form.desc.data)
+        db.session.add(t)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('online_meet.html', title='Add Details', form=form, task_title=task_title)
+
+@app.route('/edit_task/birth/<task_id>', methods=['GET', 'POST'])
+@login_required
+def birth(task_id):
+    task = Task.query.filter_by(id = task_id).first()
+    task_title = task.title
+    form = Onl_Birthday_Form()
+    if form.validate_on_submit():
+        t = Birthday(parent4=task, location=form.link.data, name=form.desc.data)
+        db.session.add(t)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('Birthday.html', title='Add Details', form=form, task_title=task_title)
+
+@app.route('/edit_task/projs/<task_id>', methods=['GET', 'POST'])
+@login_required
+def projs(task_id):
+    task = Task.query.filter_by(id = task_id).first()
+    task_title = task.title
+    form = Deadline_Gen_Form()
+    if form.validate_on_submit():
+        t = Deadlines(parent2=task, date=form.start_date.data, desc=form.desc.data)
+        db.session.add(t)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('deadline.html', title='Add Details', form=form, task_title=task_title)
+
+@app.route('/edit_task/gentk/<task_id>', methods=['GET', 'POST'])
+@login_required
+def gentk(task_id):
+    task = Task.query.filter_by(id = task_id).first()
+    task_title = task.title
+    form = Deadline_Gen_Form()
+    if form.validate_on_submit():
+        t = General(parent5=task, time=form.start_date.data, desc=form.desc.data)
+        db.session.add(t)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('general.html', title='Add Details', form=form, task_title=task_title)
+
+@app.route('/edit_task/travel/<task_id>', methods=['GET', 'POST'])
+@login_required
+def travel(task_id):
+    task = Task.query.filter_by(id = task_id).first()
+    task_title = task.title
+    form = TravelForm()
+    if form.validate_on_submit():
+        t = Travel(parent3=task, start_date=form.start_date.data, finish_date=form.finish_date.data, source=form.source.data, destination=destination.source.data)
+        db.session.add(t)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('task_detail.html', title='Add Details', form=form, task_title=task_title)
+
+@app.route('/edit_task/movie/<task_id>', methods=['GET', 'POST'])
+@login_required
+def movie(task_id):
+    task = Task.query.filter_by(id = task_id).first()
+    task_title = task.title
+    form = MovieForm()
+    if form.validate_on_submit():
+        t = Movie(parent6=task, name=form.name.data, desc=form.desc.data, location=form.loc.data)
+        db.session.add(t)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('movie.html', title='Add Details', form=form, task_title=task_title)
 
 @app.route('/delete_task/<title>', methods=['GET','POST'])
 @login_required

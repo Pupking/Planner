@@ -131,17 +131,19 @@ class Online_meetings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     link = db.Column(db.String(300))
-    host = db.Column(db.String(50))
     desc = db.Column(db.String(100))
 
 class Deadlines(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime)
     taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     desc = db.Column(db.String(300))
 
 class Travel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
+    start_date = db.Column(db.DateTime)
+    end_date = db.Column(db.DateTime)
     source = db.Column(db.String(50))
     destination = db.Column(db.String(50))
 
@@ -155,7 +157,7 @@ class General(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     desc = db.Column(db.String(150))
-    emoji = db.Column(db.String(10))
+    time = db.Column(db.DateTime)
 
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Add Task Details</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            <p>Location</p><br>
+            {{ form.link(size=32, value="#", label="Location") }}<br>
+            {% for error in form.link.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            <p>Name</p><br>
+            {{ form.desc(cols=32, rows=1, label="name") }}<br>
+            {% for error in form.desc.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}  <a href="{{ url_for('delete_task',task_title) }}">Cancel</a></p>
+    </form>
+{% endblock %}
