@@ -18,8 +18,7 @@ Will update soon
 ![alt text](https://github.com/Pupking/Planner/blob/main/Documentation/frontendv1.2.jpeg)
 
 ## Database 
-This will be further improved.
-![Database design pdf](https://github.com/Pupking/Planner/blob/Harshavardhan/Documentation/DatabaseV1.pdf)
+![Final ER Diagram](https://github.com/Pupking/Planner/blob/Harshavardhan/Documentation/ERD_final.pdf)
 
 ## Team Details
 
