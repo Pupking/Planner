@@ -84,7 +84,7 @@ class User(UserMixin, db.Model):
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.now)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     task_type = db.Column(db.String(5))
     online = db.relationship('Online_meetings',backref = 'parent1',lazy = 'dynamic')
@@ -93,36 +93,6 @@ class Task(db.Model):
     birthday = db.relationship('Birthday',backref = 'parent4',lazy = 'dynamic')
     general = db.relationship('General',backref = 'parent5',lazy = 'dynamic')
     movie = db.relationship('Movie',backref = 'parent6',lazy = 'dynamic')
-    def onlinetask(self,user):
-        own = Task.query.join(
-            Online_meetings,(id == Online_meetings.taskid).filter(user_id = user.id)
-        )
-        return own
-    def deadlinetask(self,user):
-        own = Task.query.join(
-            Deadlines,(id == Deadlines.taskid).filter(user_id = user.id)
-        ) 
-        return own
-    def traveltask(self,user):
-        own = Task.query.join(
-            Travel,(id == Travel.taskid).filter(user_id = user.id)
-        ) 
-        return own
-    def birthdaytask(self,user):
-        own = Task.query.join(
-         Birthday ,(id == Travel.taskid).filter(user_id = user.id)
-        ) 
-        return own
-    def generaltask(self,user):
-        own = Task.query.join(
-         General ,(id == General.taskid).filter(user_id = user.id)
-        ) 
-        return own
-    def movietask(self,user):
-        own = Task.query.join(
-         Movie ,(id == Movie.taskid).filter(user_id = user.id)
-        ) 
-        return own
     
     def __repr__(self):
         return '<Task {}>'.format(self.title)
@@ -131,17 +101,23 @@ class Online_meetings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     link = db.Column(db.String(300))
-    host = db.Column(db.String(50))
     desc = db.Column(db.String(100))
+    
+    def onlineTask(self,task_id):
+        own = Online_meetings.filter_by(self.id == task_id).first()
+        return own
 
 class Deadlines(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime)
     taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     desc = db.Column(db.String(300))
 
 class Travel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
+    start_date = db.Column(db.DateTime)
+    end_date = db.Column(db.DateTime)
     source = db.Column(db.String(50))
     destination = db.Column(db.String(50))
 
@@ -155,7 +131,7 @@ class General(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     desc = db.Column(db.String(150))
-    emoji = db.Column(db.String(10))
+    time = db.Column(db.DateTime)
 
 class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -18,6 +18,12 @@
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>{{ form.submit() }}</p>
+        </br>
+        <p>
+            <p>Start Date/Deadline</p>
+            {{ form.date() }}<br>
+            {{ form.time() }}<br>
+        </p>
+        <p>{{ form.submit() }}  <a href="/index">Cancel</a></p>
     </form>
 {% endblock %}

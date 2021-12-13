@@ -52,11 +52,29 @@ class TaskCreatorForm(FlaskForm):
     time = TimeField('Time', format='%H:%M')
     submit = SubmitField('Next >')
 
-class TaskDetailForm(FlaskForm):
-    date = DateField('Date', format='%Y-%m-%d')
-    time = TimeField('Time', format='%H:%M')
-    desc = TextAreaField('Enter Description', validators=[Length(min=0, max=350)])
+class TravelForm(FlaskForm):
+    start_date = DateField('Date', format='%Y-%m-%d')
+    start_time = TimeField('Time', format='%H:%M')
+    finish_date = DateField('Date', format='%Y-%m-%d')
+    finish_time = TimeField('Time', format='%H:%M')
+    source = StringField('Source')
+    destination = StringField('Destination')
+    submit = SubmitField('Finish')
+
+class Onl_Birthday_Form(FlaskForm):
     link = StringField('Meeting Link', validators=[DataRequired()])
+    desc = TextAreaField('Enter Description', validators=[Length(min=0, max=350)])
+    submit = SubmitField('Finish')
+
+class Deadline_Gen_Form(FlaskForm):
+    start_date = DateField('Date', format='%Y-%m-%d')
+    desc = TextAreaField('Enter Description', validators=[Length(min=0, max=350)])
+    submit = SubmitField('Finish')
+
+class MovieForm(FlaskForm):
+    name = StringField('Movie Name', validators=[DataRequired()])
+    loc = StringField('Enter Location Link',validators=[DataRequired()])
+    desc = TextAreaField('Enter Description', validators=[Length(min=0, max=150)])
     submit = SubmitField('Finish')
 
 class TaskFilterForm(FlaskForm):

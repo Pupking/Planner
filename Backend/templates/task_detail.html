@@ -5,33 +5,29 @@
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
-            {{ form.date.label }}<br>
-            {{ form.date() }}<br>
-            {% for error in form.date.errors %}
+            Enter Start Date and Time<br>
+            {{ form.start_date() }}<br>
+            {{ form.start_time() }}
+        </p>
+        <p>
+            Enter Finish Date and Time<br>
+            {{ form.finish_date() }}<br>
+            {{ form.finish_time() }}
+        </p>
+        <p>
+            {{ form.source.label }}<br>
+            {{ form.source(size=32) }}<br>
+            {% for error in form.source.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
-            {{ form.time.label }}<br>
-            {{ form.time() }}<br>
-            {% for error in form.time.errors %}
+            {{ form.destination.label }}<br>
+            {{ form.destination(cols=32, rows=4) }}<br>
+            {% for error in form.destination.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        <p>
-            {{ form.link.label }}<br>
-            {{ form.link(size=32) }}<br>
-            {% for error in form.link.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.desc.label }}<br>
-            {{ form.desc(cols=32, rows=4) }}<br>
-            {% for error in form.desc.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
+        <p>{{ form.submit() }}  <a href="{{ url_for('delete_task',title=task_title) }}">Cancel</a></p>
     </form>
 {% endblock %}
