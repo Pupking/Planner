@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: d3067ab836d2
+Revision ID: e3eb3a59a244
 Revises: 
-Create Date: 2021-12-13 00:59:44.820858
+Create Date: 2021-12-13 23:29:05.296133
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd3067ab836d2'
+revision = 'e3eb3a59a244'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -49,6 +49,7 @@ def upgrade():
     )
     op.create_table('deadlines',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('date', sa.DateTime(), nullable=True),
     sa.Column('taskid', sa.Integer(), nullable=True),
     sa.Column('desc', sa.String(length=300), nullable=True),
     sa.ForeignKeyConstraint(['taskid'], ['task.id'], ),
@@ -58,7 +59,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('taskid', sa.Integer(), nullable=True),
     sa.Column('desc', sa.String(length=150), nullable=True),
-    sa.Column('emoji', sa.String(length=10), nullable=True),
+    sa.Column('time', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['taskid'], ['task.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -75,7 +76,6 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('taskid', sa.Integer(), nullable=True),
     sa.Column('link', sa.String(length=300), nullable=True),
-    sa.Column('host', sa.String(length=50), nullable=True),
     sa.Column('desc', sa.String(length=100), nullable=True),
     sa.ForeignKeyConstraint(['taskid'], ['task.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -83,6 +83,8 @@ def upgrade():
     op.create_table('travel',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('taskid', sa.Integer(), nullable=True),
+    sa.Column('start_date', sa.DateTime(), nullable=True),
+    sa.Column('end_date', sa.DateTime(), nullable=True),
     sa.Column('source', sa.String(length=50), nullable=True),
     sa.Column('destination', sa.String(length=50), nullable=True),
     sa.ForeignKeyConstraint(['taskid'], ['task.id'], ),

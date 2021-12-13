@@ -1,16 +1,18 @@
-<table>
-        <tr valign="top">
-            <td>{{ task.title }}</td></br>
-            <td>{{ task.timestamp }}</td></br>
-        </tr>
-        {% if t1 %}
-            <tr>
-            <td>{{ t1.link }}</td></br>
-            </tr>
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ task.title }}</h5>
+      <h6>{{ task.timestamp }}</h6>
+      <p class="card-text"></p>
+        <a href="{{ url_for('fullview', task_id=task.id) }}" class="card-link">View Details</a>
+        <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Delete</a>
+        <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Mark Completed</a>
+   
+    {% if t1 %}
+            
+                <h6 class="card-subtitle mb-2 text-muted">{{ t1.link }}</h6>
+           
         {% endif %}
-        <tr>
-            <p><td><a href="{{ url_for('fullview', task_id=task.id) }}">View Details</a></td></p>
-            <p><td><a href="{{ url_for('delete_task', title=task.title) }}">Delete</a></td></p>
-            <p><td><a href="{{ url_for('delete_task', title=task.title) }}">Mark Completed</a></td></p>
-        </tr>
-</table>
+
+    </div>
+  </div>
