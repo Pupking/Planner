@@ -92,6 +92,7 @@ Used to send emails with the help of flask_mail.
 <li>404.html</li>
 <li>500.html</li>
 </ol>
+
 ### Form templates(that are used to create tasks)
 <ol>
 <li>Birthday.html</li>
@@ -103,6 +104,7 @@ Used to send emails with the help of flask_mail.
 <li>general.html</li>
 <li>online_meet.html</li>
 </ol>
+
 ### Form templates that help in authentication
 <ol>
 <li>login.html</li>
@@ -110,6 +112,7 @@ Used to send emails with the help of flask_mail.
 <li>reset_password.html</li>
 <li>reset_password_request.html</li>
 </ol>
+
 ### Main view templates
 <ol>
 <li>base.html</li>
@@ -117,8 +120,9 @@ Used to send emails with the help of flask_mail.
 <li>fullview.html</li>
 <li>_task.html --> Subtemplate used for ease in editing</li>
 </ol>
+
 ### Email Template (used when an email is sent)
-email</br>
+</br>email</br>
 |__reset_password.html</br>
 |__reset_password.txt</br>
 
