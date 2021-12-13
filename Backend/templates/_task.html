@@ -10,7 +10,7 @@
         {% endif %}
         <tr>
             <p><td><a href="{{ url_for('fullview', task_id=task.id) }}">View Details</a></td></p>
-            <p><td><a href="{{ url_for('delete_task', title=task.title) }}">Delete</a></td></p>
-            <p><td><a href="{{ url_for('delete_task', title=task.title) }}">Mark Completed</a></td></p>
+            <p><td><a href="{{ url_for('delete_task', id=task.id) }}">Delete</a></td></p>
+            <p><td><a href="{{ url_for('delete_task', id=task.id) }}">Mark Completed</a></td></p>
         </tr>
 </table>

@@ -1,4 +1,4 @@
-2021-12-13 22:44:52,876 ERROR: Exception on /delete_task/enw [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
+2021-12-14 00:13:31,577 ERROR: Exception on /delete_task/2 [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
 Traceback (most recent call last):
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2634, in delete
     state = attributes.instance_state(instance)
@@ -17,11 +17,44 @@ Traceback (most recent call last):
     return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/harshavardhan/Planner/Backend/routes.py", line 367, in delete_task
-    db.session.delete(t)
+  File "/home/harshavardhan/Planner/Backend/routes.py", line 386, in delete_task
+    db.session.delete(t5)
   File "<string>", line 2, in delete
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2636, in delete
     util.raise_(
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
     raise exception
 sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2021-12-14 00:25:47,706 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
+2021-12-14 00:25:51,136 ERROR: Exception on /delete_task/2 [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/harshavardhan/Planner/Backend/routes.py", line 368, in delete_task
+    return redirect(url_for('delete_gentk',id))
+TypeError: url_for() takes 1 positional argument but 2 were given
+2021-12-14 00:26:58,330 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
+2021-12-14 00:27:03,716 ERROR: Exception on /delete_task/gentk/2 [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/harshavardhan/Planner/Backend/routes.py", line 428, in delete_gentk
+    t = General.query.filter_by(id=task_id).first()
+NameError: name 'task_id' is not defined
+2021-12-14 00:28:17,370 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]

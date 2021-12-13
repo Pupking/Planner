@@ -270,53 +270,53 @@ def edit_task(task_id):
 @login_required
 def onlme(task_id):
     task = Task.query.filter_by(id = task_id).first()
-    task_title = task.title
+    task_id = task.id
     form = Onl_Birthday_Form()
     if form.validate_on_submit():
         t = Online_meetings(parent1=task, link=form.link.data, desc=form.desc.data)
         db.session.add(t)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('online_meet.html', title='Add Details', form=form, task_title=task_title)
+    return render_template('online_meet.html', title='Add Details', form=form, task_id=task_id)
 
 @app.route('/edit_task/birth/<task_id>', methods=['GET', 'POST'])
 @login_required
 def birth(task_id):
     task = Task.query.filter_by(id = task_id).first()
-    task_title = task.title
+    task_id = task.id
     form = Onl_Birthday_Form()
     if form.validate_on_submit():
         t = Birthday(parent4=task, location=form.link.data, name=form.desc.data)
         db.session.add(t)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('Birthday.html', title='Add Details', form=form, task_title=task_title)
+    return render_template('Birthday.html', title='Add Details', form=form, task_id=task_id)
 
 @app.route('/edit_task/projs/<task_id>', methods=['GET', 'POST'])
 @login_required
 def projs(task_id):
     task = Task.query.filter_by(id = task_id).first()
-    task_title = task.title
+    task_id = task.id
     form = Deadline_Gen_Form()
     if form.validate_on_submit():
         t = Deadlines(parent2=task, date=form.start_date.data, desc=form.desc.data)
         db.session.add(t)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('deadline.html', title='Add Details', form=form, task_title=task_title)
+    return render_template('deadline.html', title='Add Details', form=form, task_id=task_id)
 
 @app.route('/edit_task/gentk/<task_id>', methods=['GET', 'POST'])
 @login_required
 def gentk(task_id):
     task = Task.query.filter_by(id = task_id).first()
-    task_title = task.title
+    task_id = task.id
     form = Deadline_Gen_Form()
     if form.validate_on_submit():
         t = General(parent5=task, time=form.start_date.data, desc=form.desc.data)
         db.session.add(t)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('general.html', title='Add Details', form=form, task_title=task_title)
+    return render_template('general.html', title='Add Details', form=form, task_id=task_id)
 
 @app.route('/edit_task/travel/<task_id>', methods=['GET', 'POST'])
 @login_required
@@ -336,57 +336,115 @@ def travel(task_id):
         form.start_time.data = task.timestamp
         form.finish_date.data = datetime.now()
         form.finish_time.data = datetime.now()
-    return render_template('task_detail.html', title='Add Details', form=form, task_title=task_title)
+    return render_template('task_detail.html', title='Add Details', form=form, task_id=task_id)
 
 @app.route('/edit_task/movie/<task_id>', methods=['GET', 'POST'])
 @login_required
 def movie(task_id):
     task = Task.query.filter_by(id = task_id).first()
-    task_title = task.title
+    task_id = task.id
     form = MovieForm()
     if form.validate_on_submit():
         t = Movie(parent6=task, name=form.name.data, desc=form.desc.data, location=form.loc.data)
         db.session.add(t)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('movie.html', title='Add Details', form=form, task_title=task_title)
+    return render_template('movie.html', title='Add Details', form=form, task_id=task_id)
 
-@app.route('/delete_task/<title>', methods=['GET','POST'])
+@app.route('/delete_task/<id>', methods=['GET','POST'])
 @login_required
-def delete_task(title):
-    task = Task.query.filter_by(title=title).first()
+def delete_task(id):
+    task = Task.query.filter_by(id=id).first()
     task_type = task.task_type
-    task_id = task.id
     if task_type == 'onlme':
-        t = Online_meetings.query.filter_by(id=task_id).first()
-        db.session.delete(t)
-        db.session.delete(task)
-        db.session.commit()
+        return redirect(url_for('delete_onlme',id=id))
     if task_type == 'projs':
-        t = Deadlines.query.filter_by(id=task_id).first()
-        db.session.delete(t)
-        db.session.delete(task)
-        db.session.commit()
+        return redirect(url_for('delete_projs',id=id))
     if task_type == 'travl':
-        t = Travel.query.filter_by(id=task_id).first()
-        db.session.delete(t)
-        db.session.delete(task)
-        db.session.commit()
+        return redirect(url_for('delete_travl',id=id))
     if task_type == 'birth':
-        t = Birthday.query.filter_by(id=task_id).first()
-        db.session.delete(t)
-        db.session.delete(task)
-        db.session.commit()
+        return redirect(url_for('delete_birth',id=id))
     if task_type == 'gentk':
-        t = General.query.filter_by(id=task_id).first()
-        db.session.delete(t)
-        db.session.delete(task)
-        db.session.commit()
+        return redirect(url_for('delete_gentk',id=id))
     if task_type == 'movie':
-        t = Movie.query.filter_by(id=task_id).first()
+        return redirect(url_for('delete_movie',id=id))
+        
+@app.route('/delete_task/onlme/<id>', methods=['GET','POST'])
+@login_required
+def delete_onlme(id):
+    task = Task.query.filter_by(id=id).first()
+    t = Online_meetings.query.filter_by(taskid=id).first()
+    if task is not None and t is not None:
         db.session.delete(t)
         db.session.delete(task)
         db.session.commit()
+    else:
+        flash('Sorry unable to delete')
+    return redirect(url_for('index'))
+    
+@app.route('/delete_task/projs/<id>', methods=['GET','POST'])
+@login_required
+def delete_projs(id):
+    task = Task.query.filter_by(id=id).first()
+    t = Deadlines.query.filter_by(taskid=id).first()
+    if task is not None and t is not None:
+        db.session.delete(t)
+        db.session.delete(task)
+        db.session.commit()
+    else:
+        flash('Sorry unable to delete')
+    return redirect(url_for('index'))
+
+@app.route('/delete_task/travl/<id>', methods=['GET','POST'])
+@login_required
+def delete_travl(id):
+    task = Task.query.filter_by(id=id).first()
+    t = Travel.query.filter_by(taskid=id).first()
+    if task is not None and t is not None:
+        db.session.delete(t)
+        db.session.delete(task)
+        db.session.commit()
+    else:
+        flash('Sorry unable to delete')
+    return redirect(url_for('index'))
+
+@app.route('/delete_task/birth/<id>', methods=['GET','POST'])
+@login_required
+def delete_birth(id):
+    task = Task.query.filter_by(id=id).first()
+    t = Birthday.query.filter_by(taskid=id).first()
+    if task is not None and t is not None:
+        db.session.delete(t)
+        db.session.delete(task)
+        db.session.commit()
+    else:
+        flash('Sorry unable to delete')
+    return redirect(url_for('index'))
+
+@app.route('/delete_task/gentk/<id>', methods=['GET','POST'])
+@login_required
+def delete_gentk(id):
+    task = Task.query.filter_by(id=id).first()
+    t = General.query.filter_by(taskid=id).first()
+    if task is not None and t is not None:
+        db.session.delete(t)
+        db.session.delete(task)
+        db.session.commit()
+    else:
+        flash('Sorry unable to delete')
+    return redirect(url_for('index'))
+
+@app.route('/delete_task/movie/<id>', methods=['GET','POST'])
+@login_required
+def delete_movie(id):
+    task = Task.query.filter_by(id=id).first()
+    t = Movie.query.filter_by(taskid=id).first()
+    if task is not None and t is not None:
+        db.session.delete(t)
+        db.session.delete(task)
+        db.session.commit()
+    else:
+        flash('Sorry unable to delete')
     return redirect(url_for('index'))
 
 @app.route('/calendar')
@@ -418,3 +476,4 @@ def fullview(task_id):
     if task_type == 'movie':
         t6 = Movie.query.filter_by(taskid=task_id).first()
         return render_template('fullview.html', task=task, t6=t6)
+

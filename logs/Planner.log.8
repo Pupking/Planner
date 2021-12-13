@@ -1,42 +1,4 @@
-2021-12-14 00:06:50,754 ERROR: Exception on /index [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
-Traceback (most recent call last):
-  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 2073, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1518, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1516, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1502, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
-  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "/home/harshavardhan/Planner/Backend/routes.py", line 32, in index
-    return render_template('index.html', title='Home', tasks=tasks, form=form)
-  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/templating.py", line 147, in render_template
-    return _render(
-  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/templating.py", line 128, in _render
-    rv = template.render(context)
-  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/jinja2/environment.py", line 1291, in render
-    self.environment.handle_exception()
-  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/jinja2/environment.py", line 925, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/home/harshavardhan/Planner/Backend/templates/index.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/home/harshavardhan/Planner/Backend/templates/base.html", line 35, in top-level template code
-    {% block content %}{% endblock %}
-  File "/home/harshavardhan/Planner/Backend/templates/index.html", line 39, in block 'content'
-    {% include '_task.html' %}
-  File "/home/harshavardhan/Planner/Backend/templates/_task.html", line 13, in top-level template code
-    <p><td><a href="{{ url_for('delete_task', id=task.id) }}">Delete</a></td></p>
-  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/helpers.py", line 338, in url_for
-    return appctx.app.handle_url_build_error(error, endpoint, values)
-  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/helpers.py", line 325, in url_for
-    rv = url_adapter.build(
-  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/werkzeug/routing.py", line 2314, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.BuildError: Could not build url for endpoint 'delete_task' with values ['title']. Did you forget to specify values ['id']?
-2021-12-14 00:06:56,770 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
-2021-12-14 00:08:09,494 ERROR: Exception on /delete_task/2 [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
+2021-12-13 22:44:52,876 ERROR: Exception on /delete_task/enw [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
 Traceback (most recent call last):
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2634, in delete
     state = attributes.instance_state(instance)
@@ -55,16 +17,16 @@ Traceback (most recent call last):
     return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/harshavardhan/Planner/Backend/routes.py", line 386, in delete_task
-    db.session.delete(t5)
+  File "/home/harshavardhan/Planner/Backend/routes.py", line 367, in delete_task
+    db.session.delete(t)
   File "<string>", line 2, in delete
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2636, in delete
     util.raise_(
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
     raise exception
 sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
-2021-12-14 00:13:05,681 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
-2021-12-14 00:13:10,331 ERROR: Exception on /delete_task/2 [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
+2021-12-13 22:48:59,799 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
+2021-12-13 22:49:04,840 ERROR: Exception on /delete_task/enw [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
 Traceback (most recent call last):
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2634, in delete
     state = attributes.instance_state(instance)
@@ -83,15 +45,16 @@ Traceback (most recent call last):
     return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/harshavardhan/Planner/Backend/routes.py", line 386, in delete_task
-    db.session.delete(t5)
+  File "/home/harshavardhan/Planner/Backend/routes.py", line 367, in delete_task
+    db.session.delete(t)
   File "<string>", line 2, in delete
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2636, in delete
     util.raise_(
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
     raise exception
 sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
-2021-12-14 00:13:15,828 ERROR: Exception on /delete_task/2 [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
+2021-12-13 22:55:26,387 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
+2021-12-13 22:55:30,650 ERROR: Exception on /delete_task/enw [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
 Traceback (most recent call last):
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2634, in delete
     state = attributes.instance_state(instance)
@@ -110,11 +73,12 @@ Traceback (most recent call last):
     return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/harshavardhan/Planner/Backend/routes.py", line 386, in delete_task
-    db.session.delete(t5)
+  File "/home/harshavardhan/Planner/Backend/routes.py", line 367, in delete_task
+    db.session.delete(t)
   File "<string>", line 2, in delete
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2636, in delete
     util.raise_(
   File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
     raise exception
 sqlalchemy.orm.exc.UnmappedInstanceError: Class 'builtins.NoneType' is not mapped
+2021-12-13 22:56:45,388 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]

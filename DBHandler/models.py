@@ -87,45 +87,48 @@ class Task(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     task_type = db.Column(db.String(5))
-    online = db.relationship('Online_meetings',backref = 'parent1',lazy = 'dynamic')
-    deadline = db.relationship('Deadlines',backref = 'parent2',lazy = 'dynamic')
-    travel = db.relationship('Travel',backref = 'parent3',lazy = 'dynamic')
-    birthday = db.relationship('Birthday',backref = 'parent4',lazy = 'dynamic')
-    general = db.relationship('General',backref = 'parent5',lazy = 'dynamic')
-    movie = db.relationship('Movie',backref = 'parent6',lazy = 'dynamic')
+    
+    online = db.relationship('Online_meetings',backref = 'parent1', lazy = 'dynamic')
+    
+    deadline = db.relationship('Deadlines',backref = 'parent2', lazy = 'dynamic')
+    
+    travel = db.relationship('Travel',backref = 'parent3', lazy = 'dynamic')
+    
+    birthday = db.relationship('Birthday',backref = 'parent4', lazy = 'dynamic')
+    
+    general = db.relationship('General',backref = 'parent5', lazy = 'dynamic')
+    
+    movie = db.relationship('Movie',backref = 'parent6', lazy = 'dynamic')
     
     def __repr__(self):
         return '<Task {}>'.format(self.title)
       
 class Online_meetings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     link = db.Column(db.String(300))
     desc = db.Column(db.String(100))
+    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     
-    def onlineTask(self,task_id):
-        own = Online_meetings.filter_by(self.id == task_id).first()
-        return own
 
 class Deadlines(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
-    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     desc = db.Column(db.String(300))
+    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
 
 class Travel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
     source = db.Column(db.String(50))
     destination = db.Column(db.String(50))
+    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
 
 class Birthday(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
     name = db.Column(db.String(50))
     location = db.Column(db.String(50))
+    taskid = db.Column(db.Integer,db.ForeignKey('task.id'))
 
 class General(db.Model):
     id = db.Column(db.Integer, primary_key=True)

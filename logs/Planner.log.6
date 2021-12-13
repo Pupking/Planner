@@ -1,0 +1,134 @@
+2021-12-13 22:57:09,138 ERROR: Exception on / [GET] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1802, in _execute_context
+    self.dialect.do_execute(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 719, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: user
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 270, in decorated_view
+    elif not current_user.is_authenticated:
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/werkzeug/local.py", line 432, in __get__
+    obj = instance._get_current_object()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/werkzeug/local.py", line 554, in _get_current_object
+    return self.__local()  # type: ignore
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 26, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/utils.py", line 346, in _get_user
+    current_app.login_manager._load_user()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_login/login_manager.py", line 318, in _load_user
+    user = self._user_callback(user_id)
+  File "/home/harshavardhan/Planner/DBHandler/models.py", line 145, in load_user
+    return User.query.get(int(id))
+  File "<string>", line 2, in get
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/util/deprecations.py", line 401, in warned
+    return fn(*args, **kwargs)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 943, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 947, in _get_impl
+    return self.session._get_impl(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 2874, in _get_impl
+    return db_load_fn(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/loading.py", line 530, in load_on_pk_identity
+    session.execute(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1614, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 325, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1481, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1845, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2026, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1802, in _execute_context
+    self.dialect.do_execute(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 719, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: user
+[SQL: SELECT user.id AS user_id, user.username AS user_username, user.first_name AS user_first_name, user.last_name AS user_last_name, user.email AS user_email, user.password_hash AS user_password_hash 
+FROM user 
+WHERE user.id = ?]
+[parameters: (1,)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2021-12-13 22:57:49,027 ERROR: Exception on /register [POST] [in /home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1802, in _execute_context
+    self.dialect.do_execute(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 719, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: user
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/harshavardhan/Planner/Backend/routes.py", line 190, in register
+    if form.validate_on_submit():
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/flask_wtf/form.py", line 86, in validate_on_submit
+    return self.is_submitted() and self.validate()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/wtforms/form.py", line 329, in validate
+    return super().validate(extra)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/wtforms/form.py", line 146, in validate
+    if not field.validate(self, extra):
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/wtforms/fields/core.py", line 242, in validate
+    stop_validation = self._run_validation_chain(form, chain)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/wtforms/fields/core.py", line 262, in _run_validation_chain
+    validator(form, self)
+  File "/home/harshavardhan/Planner/Backend/forms.py", line 22, in validate_username
+    user = User.query.filter_by(username=username.data).first()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2810, in first
+    return self.limit(1)._iter().first()
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/query.py", line 2894, in _iter
+    result = self.session.execute(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1689, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1614, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 325, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1481, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1845, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2026, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1802, in _execute_context
+    self.dialect.do_execute(
+  File "/home/harshavardhan/Planner/venv/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 719, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: user
+[SQL: SELECT user.id AS user_id, user.username AS user_username, user.first_name AS user_first_name, user.last_name AS user_last_name, user.email AS user_email, user.password_hash AS user_password_hash 
+FROM user 
+WHERE user.username = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('Harsha', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2021-12-13 23:27:33,831 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
+2021-12-13 23:28:15,400 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
+2021-12-13 23:28:32,562 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
+2021-12-13 23:28:54,502 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
