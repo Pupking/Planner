@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hi, {{ current_user.first_name }} {{ current_user.last_name }}!</h1>
+    <p><a href="{{ link }}">Click here to join the meeting</a></p>
+    </br>
+    </br>
+    <form class="container" action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <div>
+        <p>
+            {{ form.index.label }}<br>
+            {{ form.index(size=20) }}<br>
+        </p>
+    </div>
+        <p>
+            {{ form.onlme.label }}<br>
+            {{ form.onlme(size=20) }}<br>
+        </p>
+        <p>
+            {{ form.projs.label }}<br>
+            {{ form.projs(size=20) }}<br>
+        </p>
+        <p>
+            {{ form.travl.label }}<br>
+            {{ form.travl(size=20) }}<br>
+        </p>
+        <p>
+            {{ form.movie.label }}<br>
+            {{ form.movie(size=20) }}<br>
+        </p>
+        <p>
+            {{ form.birth.label }}<br>
+            {{ form.birth(size=20) }}<br>
+        </p>
+        <p>
+            {{ form.gentk.label }}<br>
+            {{ form.gentk(size=20) }}<br>
+        </p>
+    </form>
+    {% for task in tasks %}
+        {% include '_task.html' %}
+    {% endfor %}
+{% endblock %}
