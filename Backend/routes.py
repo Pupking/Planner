@@ -20,7 +20,7 @@ def index():
         if form.projs.data:
             return redirect(url_for('projects'))
         if form.travl.data:
-            return redirect(url_for('travel'))
+            return redirect(url_for('travels'))
         if form.movie.data:
             return redirect(url_for('movies'))
         if form.birth.data:
@@ -42,7 +42,7 @@ def online_meetings():
         if form.projs.data:
             return redirect(url_for('projects'))
         if form.travl.data:
-            return redirect(url_for('travel'))
+            return redirect(url_for('travels'))
         if form.movie.data:
             return redirect(url_for('movies'))
         if form.birth.data:
@@ -64,7 +64,29 @@ def projects():
         if form.projs.data:
             return redirect(url_for('projects'))
         if form.travl.data:
-            return redirect(url_for('travel'))
+            return redirect(url_for('travels'))
+        if form.movie.data:
+            return redirect(url_for('movies'))
+        if form.birth.data:
+            return redirect(url_for('birthday'))
+        if form.gentk.data:
+            return redirect(url_for('others'))
+        if form.index.data:
+            return redirect(url_for('index'))
+    return render_template('index.html', title='Home', tasks=tasks, form=form)
+
+@app.route('/index/travels', methods=['GET', 'POST'])
+@login_required
+def travels():
+    tasks = User.projectstask(current_user)
+    form = TaskFilterForm()
+    if form.validate_on_submit():
+        if form.onlme.data:
+            return redirect(url_for('online_meetings'))
+        if form.projs.data:
+            return redirect(url_for('projects'))
+        if form.travl.data:
+            return redirect(url_for('travels'))
         if form.movie.data:
             return redirect(url_for('movies'))
         if form.birth.data:
@@ -86,7 +108,7 @@ def movies():
         if form.projs.data:
             return redirect(url_for('projects'))
         if form.travl.data:
-            return redirect(url_for('travel'))
+            return redirect(url_for('travels'))
         if form.movie.data:
             return redirect(url_for('movies'))
         if form.birth.data:
@@ -109,7 +131,7 @@ def birthday():
         if form.projs.data:
             return redirect(url_for('projects'))
         if form.travl.data:
-            return redirect(url_for('travel'))
+            return redirect(url_for('travels'))
         if form.movie.data:
             return redirect(url_for('movies'))
         if form.birth.data:
@@ -132,7 +154,7 @@ def others():
         if form.projs.data:
             return redirect(url_for('projects'))
         if form.travl.data:
-            return redirect(url_for('travel'))
+            return redirect(url_for('travels'))
         if form.movie.data:
             return redirect(url_for('movies'))
         if form.birth.data:
@@ -302,7 +324,7 @@ def travel(task_id):
     task_title = task.title
     form = TravelForm()
     if form.validate_on_submit():
-        t = Travel(parent3=task, start_date=form.start_date.data, finish_date=form.finish_date.data, source=form.source.data, destination=destination.source.data)
+        t = Travel(parent3=task, start_date=form.start_date.data, finish_date=form.finish_date.data, source=form.source.data, destination=form.destination.data)
         db.session.add(t)
         db.session.commit()
         return redirect(url_for('index'))
@@ -330,7 +352,35 @@ def movie(task_id):
 @login_required
 def delete_task(title):
     task = Task.query.filter_by(title=title).first()
+    task_type = task.task_type
+    task_id = task.id
     db.session.delete(task)
+    if task_type == 'onlme':
+        t = Online_meetings.query.filter_by(id=task_id).first()
+        db.session.delete(t)
+        db.session.commit()
+    if task_type == 'projs':
+        t = Deadlines.query.filter_by(id=task_id).first()
+        db.session.delete(t)
+        db.session.commit()
+    if task_type == 'travl':
+        t = Travel.query.filter_by(id=task_id).first()
+        db.session.delete(t)
+        db.session.commit()
+    if task_type == 'birth':
+        t = Birthday.query.filter_by(id=task_id).first()
+        db.session.delete(t)
+        db.session.commit()
+    if task_type == 'gentk':
+        t = General.query.filter_by(id=task_id).first()
+        db.session.delete(t)
+        db.session.commit()
+    if task_type == 'movie':
+        t = Movie.query.filter_by(id=task_id).first()
+        db.session.delete(t)
+        db.session.commit()
+    else:
+        db.session.commit()
     db.session.commit()
     return redirect(url_for('index'))
 
