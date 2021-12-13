@@ -1,6 +1,16 @@
 <table>
         <tr valign="top">
-            <td>{{ task.creator.username }} created:<br>{{ task.title }}</td>
-            <td><a href="{{ url_for('delete_task', title=task.title) }}">Delete</a></td>
+            <td>{{ task.title }}</td></br>
+            <td>{{ task.timestamp }}</td></br>
         </tr>
-    </table>
+        {% if t1 %}
+            <tr>
+            <td>{{ t1.link }}</td></br>
+            </tr>
+        {% endif %}
+        <tr>
+            <p><td><a href="{{ url_for('fullview', task_id=task.id) }}">View Details</a></td></p>
+            <p><td><a href="{{ url_for('delete_task', title=task.title) }}">Delete</a></td></p>
+            <p><td><a href="{{ url_for('delete_task', title=task.title) }}">Mark Completed</a></td></p>
+        </tr>
+</table>

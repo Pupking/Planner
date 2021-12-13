@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Full details of {{ task.title }}</h1>
+    <table>
+        
+        {% if t1 %}
+        <tr valign="top">
+            <td>{{ task.timestamp }}</td>
+        </tr>
+            <tr>
+            <td>{{ t1.link }}</td>
+            </tr>
+            <tr>
+            <td>{{ t1.desc }}</td>
+            </tr>
+        {% endif %}
+
+        {% if t2 %}
+            <tr>
+            <td>{{ t2.date }}</td>
+            </tr>
+            <tr>
+            <td>{{ t2.desc }}</td>
+            </tr>
+        {% endif %}
+
+        {% if t3 %}
+            <tr>
+            <td>{{ t3.start_date }}</td></br>
+            </tr>
+            <tr>
+            <td>{{ t3.end_date }}</td></br>
+            </tr>
+            <tr>
+            <td>{{ t3.source }}</td></br>
+            <td>{{ t3.destination }}</td></br>
+            </tr>
+        {% endif %}
+
+        {% if t4 %}
+        <tr valign="top">
+            <td>{{ task.timestamp }}</td>
+        </tr>
+            <tr>
+            <td>{{ t4.name }}</td>
+            </tr>
+            <tr>
+            <td>{{ t4.location }}</td>
+            </tr>
+        {% endif %}
+
+        {% if t5 %}
+            <tr>
+            <td>{{ t5.time }}</td>
+            </tr>
+            <tr>
+            <td>{{ t5.desc }}</td>
+            </tr>
+        {% endif %}
+
+        {% if t6 %}
+        <tr valign="top">
+            <td>{{ task.timestamp }}</td>
+        </tr>
+            <tr>
+            <td>{{ t6.name }}</td>
+            </tr>
+            <tr>
+            <td>{{ t6.desc }}</td>
+            </tr>
+            <tr>
+            <td>{{ t6.location }}</td>
+            </tr>
+        {% endif %}
+        <tr>
+            <p><td><a href="{{ url_for('index') }}">Go Back</a></td></p>
+            <p><td><a href="{{ url_for('delete_task', title=task.title) }}">Delete</a></td></p>
+            <p><td><a href="{{ url_for('delete_task', title=task.title) }}">Mark Completed</a></td></p>
+        </tr>
+    </table>
+{% endblock %}

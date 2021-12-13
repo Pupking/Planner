@@ -71,3 +71,4 @@ sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) database is locked
 2021-12-13 14:36:03,581 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:43]
 2021-12-13 14:38:08,248 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:43]
 2021-12-13 14:41:08,283 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:43]
+2021-12-13 17:28:48,824 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:43]

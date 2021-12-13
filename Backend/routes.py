@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from flask import render_template, flash, redirect, url_for, request, jsonify
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
@@ -237,7 +237,8 @@ def reset_password(token):
 def create_task():
     form = TaskCreatorForm()
     if form.validate_on_submit():
-        task = Task(creator=current_user, title=form.title.data, task_type=form.task_type.data)
+        combine = datetime.combine(form.date.data, form.time.data)
+        task = Task(creator=current_user, title=form.title.data, task_type=form.task_type.data, timestamp=combine)
         db.session.add(task)
         db.session.commit()
         flash('Task successfully created!! Add few more details')
@@ -298,7 +299,8 @@ def projs(task_id):
     task_title = task.title
     form = Deadline_Gen_Form()
     if form.validate_on_submit():
-        t = Deadlines(parent2=task, date=form.start_date.data, desc=form.desc.data)
+        combine = datetime.combine(form.start_date.data, form.start_time.data)
+        t = Deadlines(parent2=task, date=combine, desc=form.desc.data)
         db.session.add(t)
         db.session.commit()
         return redirect(url_for('index'))
@@ -311,7 +313,8 @@ def gentk(task_id):
     task_title = task.title
     form = Deadline_Gen_Form()
     if form.validate_on_submit():
-        t = General(parent5=task, time=form.start_date.data, desc=form.desc.data)
+        combine = datetime.combine(form.start_date.data, form.start_time.data)
+        t = General(parent5=task, time=combine, desc=form.desc.data)
         db.session.add(t)
         db.session.commit()
         return redirect(url_for('index'))
@@ -324,7 +327,9 @@ def travel(task_id):
     task_title = task.title
     form = TravelForm()
     if form.validate_on_submit():
-        t = Travel(parent3=task, start_date=form.start_date.data, finish_date=form.finish_date.data, source=form.source.data, destination=form.destination.data)
+        combine1 = datetime.combine(form.start_date.data, form.start_time.data)
+        combine2 = datetime.combine(form.finish_date.data, form.finish_time.data)
+        t = Travel(parent3=task, start_date=combine1, end_date=combine2, source=form.source.data, destination=form.destination.data)
         db.session.add(t)
         db.session.commit()
         return redirect(url_for('index'))
@@ -354,37 +359,64 @@ def delete_task(title):
     task = Task.query.filter_by(title=title).first()
     task_type = task.task_type
     task_id = task.id
-    db.session.delete(task)
     if task_type == 'onlme':
         t = Online_meetings.query.filter_by(id=task_id).first()
         db.session.delete(t)
+        db.session.delete(task)
         db.session.commit()
     if task_type == 'projs':
         t = Deadlines.query.filter_by(id=task_id).first()
         db.session.delete(t)
+        db.session.delete(task)
         db.session.commit()
     if task_type == 'travl':
         t = Travel.query.filter_by(id=task_id).first()
         db.session.delete(t)
+        db.session.delete(task)
         db.session.commit()
     if task_type == 'birth':
         t = Birthday.query.filter_by(id=task_id).first()
         db.session.delete(t)
+        db.session.delete(task)
         db.session.commit()
     if task_type == 'gentk':
         t = General.query.filter_by(id=task_id).first()
         db.session.delete(t)
+        db.session.delete(task)
         db.session.commit()
     if task_type == 'movie':
         t = Movie.query.filter_by(id=task_id).first()
         db.session.delete(t)
+        db.session.delete(task)
         db.session.commit()
-    else:
-        db.session.commit()
-    db.session.commit()
     return redirect(url_for('index'))
 
 @app.route('/calendar')
 def calendar():
     return render_template('calendar.html')
 
+@app.route('/fullview/<task_id>')
+@login_required
+def fullview(task_id):
+    task = Task.query.filter_by(id=task_id).first()
+    task_type = task.task_type
+    task_id = task.id
+    if task_type == 'onlme':
+        print(task_id)
+        t1 = Online_meetings.query.filter_by(taskid=task_id).first()
+        return render_template('fullview.html', task=task, t1=t1)
+    if task_type == 'projs':
+        t2 = Deadlines.query.filter_by(taskid=task_id).first()
+        return render_template('fullview.html', task=task, t2=t2)
+    if task_type == 'travl':
+        t3 = Travel.query.filter_by(taskid=task_id).first()
+        return render_template('fullview.html', task=task, t3=t3)
+    if task_type == 'birth':
+        t4 = Birthday.query.filter_by(taskid=task_id).first()
+        return render_template('fullview.html', task=task, t4=t4)
+    if task_type == 'gentk':
+        t5 = General.query.filter_by(taskid=task_id).first()
+        return render_template('fullview.html', task=task, t5=t5)
+    if task_type == 'movie':
+        t6 = Movie.query.filter_by(taskid=task_id).first()
+        return render_template('fullview.html', task=task, t6=t6)
