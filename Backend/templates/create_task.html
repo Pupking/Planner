@@ -1,29 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Create Task</h1>
+<<<<<<< HEAD
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4"> </div>
+<div class="col-lg-4 card">
+    <div class="card-header">
+    <h5>Create Task</h5>
+    </div>
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
             {{ form.title.label }}<br>
-            {{ form.title(size=32) }}<br>
+            {{ form.title(size=29) }}<br>
             {% for error in form.title.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.task_type.label }}<br>
-            {{ form.task_type() }}<br>
+            {{ form.task_type() }}
             {% for error in form.task_type.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
-        </br>
         <p>
             <p>Start Date/Deadline</p>
             {{ form.date() }}<br>
             {{ form.time() }}<br>
         </p>
-        <p>{{ form.submit() }}  <a href="/index">Cancel</a></p>
+        <p>{{ form.submit(class="btn btn-outline-success") }} 
+             </p>
+            <p> <a href="/index">Cancel</a></p>
     </form>
+</div>
+</div>
+</div>
 {% endblock %}
