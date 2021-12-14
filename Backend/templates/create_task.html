@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Create Task</h1>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4"> </div>
+<div class="col-lg-4 card">
+    <div class="card-header">
+    <h5>Create Task</h5>
+    </div>
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
@@ -26,4 +33,7 @@
         </p>
         <p>{{ form.submit() }}  <a href="/index">Cancel</a></p>
     </form>
+</div>
+</div>
+</div>
 {% endblock %}
