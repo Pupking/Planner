@@ -27,86 +27,122 @@
         {% endif %}
 
         {% if t2 %}
-            <tr>
-            <td>{{ t2.date }}</td>
-            </tr>
-            <tr>
-            <td>{{ t2.desc }}</td>
-            </tr>
+        <div class="card text-center">
+          <div class="card-header">
+            <h4>Full details of {{ task.title }}</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ t2.date }}</h5>
+            <p class="card-text">{{ t2.desc }}</p>
+            <a href="{{ url_for('fullview', task_id=task.id) }}" class="card-link">View Details</a>
+            <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Delete</a>
+           
+            <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Mark Completed</a>
+       
+          </div>
+          <div class="card-footer text-muted">
+            2 days ago
+          </div>
+        </div>
+           
         {% endif %}
 
         {% if t3 %}
-            <tr>
-            <td>{{ t3.start_date }}</td></br>
-            </tr>
-            <tr>
-            <td>{{ t3.end_date }}</td></br>
-            </tr>
-            <tr>
-            <td>{{ t3.source }}</td></br>
-            <td>{{ t3.destination }}</td></br>
-            </tr>
+        <div class="card text-center">
+          <div class="card-header">
+            <h4>Full details of {{ task.title }}</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ t3.start_date }}-{{ t3.end_date }}</h5>
+            <p class="card-text">{{ t3.source }}</p>
+            <p>to</p>
+            <p class="card-text">{{ t3.destination }}</p>
+            
+            <a href="{{ url_for('fullview', task_id=task.id) }}" class="card-link">View Details</a>
+            <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Delete</a>
+           
+            <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Mark Completed</a>
+       
+          </div>
+          <div class="card-footer text-muted">
+            2 days ago
+          </div>
+        </div>
+           
         {% endif %}
 
         {% if t4 %}
-        <tr valign="top">
-            <td>{{ task.timestamp }}</td>
-        </tr>
-            <tr>
-            <td>{{ t4.name }}</td>
-            </tr>
-            <tr>
-            <td>{{ t4.location }}</td>
-            </tr>
+        <div class="card text-center">
+          <div class="card-header">
+            <h4>Full details of {{ task.title }}</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ task.timestamp }}</h5>
+            <p class="card-text">{{ t4.name }}</p>
+            
+            <p class="card-text">{{ t4.location }}</p>
+            <a href="{{ url_for('fullview', task_id=task.id) }}" class="card-link">View Details</a>
+            <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Delete</a>
+           
+            <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Mark Completed</a>
+       
+          </div>
+          <div class="card-footer text-muted">
+            2 days ago
+          </div>
+        </div>
+        
         {% endif %}
 
         {% if t5 %}
-            <tr>
-            <td>{{ t5.time }}</td>
-            </tr>
-            <tr>
-            <td>{{ t5.desc }}</td>
-            </tr>
+        <div class="card text-center">
+          <div class="card-header">
+            <h4>Full details of {{ task.title }}</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ t5.time }}</h5>
+            <p class="card-text">{{ t5.desc }}</p>
+            <a href="{{ url_for('fullview', task_id=task.id) }}" class="card-link">View Details</a>
+            <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Delete</a>
+           
+            <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Mark Completed</a>
+       
+          </div>
+          <div class="card-footer text-muted">
+            2 days ago
+          </div>
+        </div>
+           
         {% endif %}
 
         {% if t6 %}
-        <tr valign="top">
-            <td>{{ task.timestamp }}</td>
-        </tr>
-            <tr>
-            <td>{{ t6.name }}</td>
-            </tr>
-            <tr>
-            <td>{{ t6.desc }}</td>
-            </tr>
-            <tr>
-            <td>{{ t6.location }}</td>
-            </tr>
+        <div class="card text-center">
+          <div class="card-header">
+            <h4>Full details of {{ task.title }}</h4>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ task.timestamp }}</h5>
+           
+            <p class="card-text">{{ t6.name }}</p>
+            
+            <p class="card-text">{{ t6.location }}</p>
+            <p class="card-text">{{ t6.desc }}</p>
+            <a href="{{ url_for('fullview', task_id=task.id) }}" class="card-link">View Details</a>
+            <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Delete</a>
+           
+            <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Mark Completed</a>
+       
+          </div>
+          <div class="card-footer text-muted">
+            2 days ago
+          </div>
+        </div>
+        
+        
         {% endif %}
-        <!-- <tr>
-            <p><td><a href="{{ url_for('index') }}">Go Back</a></td></p>
-            <p><td><a href="{{ url_for('delete_task', id=task.id) }}">Delete</a></td></p>
-            <p><td><a href="{{ url_for('delete_task', id=task.id) }}">Mark Completed</a></td></p>
-        </tr> -->
+
     </table>
 
-    <!-- <div class="card text-center">
-        <div class="card-header">
-          <h4>Full details of {{ task.title }}</h4>
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">{{ task.timestamp }}</h5>
-          <p><a href="{{ t1.link }}" class="card-text btn btn-outline-primary">meeting link</a></p>
-          
-          <p class="card-text">{{ t1.desc }}</p>
-          <a href="{{ url_for('fullview', task_id=task.id) }}" class="card-link">View Details</a>
-          <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Delete</a>
-         
-          <a href="{{ url_for('delete_task', id=task.id) }}" class="card-link">Mark Completed</a>
-     
-        </div>
-        <div class="card-footer text-muted">
-          2 days ago
-        </div>
-      </div> -->
+
 {% endblock %}
+

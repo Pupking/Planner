@@ -58,8 +58,4 @@ Traceback (most recent call last):
     t = General.query.filter_by(id=task_id).first()
 NameError: name 'task_id' is not defined
 2021-12-14 00:28:17,370 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
-<<<<<<< HEAD
 2021-12-14 01:44:38,922 INFO: Planner App Startup [in /Users/jayanth/Planner/Backend/__init__.py:45]
-=======
-2021-12-14 00:33:46,980 INFO: Planner App Startup [in /home/harshavardhan/Planner/Backend/__init__.py:45]
->>>>>>> dev

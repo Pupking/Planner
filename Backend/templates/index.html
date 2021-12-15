@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+
     <h1>Hi, {{ current_user.first_name }} {{ current_user.last_name }}!</h1>
     </br>
    <div class="container-fluid">
@@ -9,7 +10,7 @@
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <div class="card-header">
-            Featured
+            Categories
           </div>
 
         <div class="card-body d-grid gap-2 col-9 mx-auto">
@@ -38,11 +39,11 @@
     </div>
     </form>
 </div>
-<div class="col-lg-4 card overflow-hidden flex-wrap">
+<div class="col-lg-4 card overflow-hidden flex-wrap" >
     <div class="card-header">
         tasks
     </div>
-    <div class="card-body d-grid gap-2 col-9 mx-auto ">
+    <div class="wrapper card-body d-grid gap-2 col-9 mx-auto ">
     {% for task in tasks %}
         {% include '_task.html' %}
     {% endfor %}
