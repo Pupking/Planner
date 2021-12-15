@@ -130,3 +130,4 @@ Used to send emails with the help of flask_mail.
 <p>The logs are stored in the directory logs which is present in the parent directory.</p>
 <p>The config.py is also stored in the parent directory.</p>
 <p>The db and models.py are stored in the DBHandler directory present in the parent directory.</p>
+

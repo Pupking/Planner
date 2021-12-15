@@ -336,7 +336,7 @@ def travel(task_id):
         form.start_time.data = task.timestamp
         form.finish_date.data = datetime.now()
         form.finish_time.data = datetime.now()
-    return render_template('travel.html', title='Add Details', form=form, task_id=task_id)
+    return render_template('task_detail.html', title='Add Details', form=form, task_id=task_id)
 
 @app.route('/edit_task/movie/<task_id>', methods=['GET', 'POST'])
 @login_required
