@@ -4,7 +4,7 @@ The app can be used to plan all yours tasks. The filters help you do it easily.
 
 We divide the tasks into 5 main types:
 1) Online Meetings
-2) Project/Assignment Submissions
+2) Project/Assignment Deadlines
 3) Travel/Journey
 4) Movie/Concert reservations
 5) Birthdays
@@ -17,9 +17,8 @@ Will update soon
 ## Frontend
 ![alt text](https://github.com/Pupking/Planner/blob/main/Documentation/frontendv1.2.jpeg)
 
-## Database 
-This will be further improved.
-![Database design pdf](https://github.com/Pupking/Planner/blob/Harshavardhan/Documentation/DatabaseV1.pdf)
+## Database
+![Final ER diagram](https://github.com/Pupking/Planner/blob/main/Documentation/ERD_final.pdf)
 
 ## Team Details
 
