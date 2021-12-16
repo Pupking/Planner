@@ -12,7 +12,8 @@ We divide the tasks into 5 main types:
 
 ## Install Requirements
 
-Will update soon
+Use the following command:
+pip install -r requirements.txt
 
 ## Frontend
 ![alt text](https://github.com/Pupking/Planner/blob/main/Documentation/frontendv1.2.jpeg)
